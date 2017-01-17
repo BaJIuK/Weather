@@ -64,4 +64,7 @@ dependencies {
   compile 'com.bluelinelabs:conductor:2.0.5'
   compile 'com.bluelinelabs:conductor-support:2.0.5'
   compile 'com.bluelinelabs:conductor-rxlifecycle:2.0.5'
+
+  // Orm
+  compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 }

@@ -16,6 +16,7 @@
 package com.bajiuk.weather;
 
 import android.app.Application;
+import com.activeandroid.ActiveAndroid;
 import com.bajiuk.weather.di.ApplicationComponent;
 import com.bajiuk.weather.di.ApplicationModule;
 import com.bajiuk.weather.di.DaggerApplicationComponent;
@@ -27,6 +28,7 @@ public class WeatherApplication extends Application {
   @Override public void onCreate() {
     super.onCreate();
     instance = this;
+    ActiveAndroid.initialize(this);
   }
 
   public static ApplicationComponent getAppComponent() {

@@ -34,8 +34,8 @@ public class WeatherController extends ButterKnifeController<WeatherComponent> i
   }
 
   @Override protected void onDetach(@NonNull View view) {
-    super.onDetach(view);
     presenter.detach();
+    super.onDetach(view);
   }
 
   @Override protected WeatherComponent buildComponent() {
