@@ -14,10 +14,6 @@ import com.bajiuk.weather.tabs.di.TabsComponent;
 import java.util.List;
 import javax.inject.Inject;
 
-/**
- * Created by Valentin on 18.01.2017.
- */
-
 public class TabsController extends ButterKnifeController<TabsComponent> implements TabsView {
 
   @Inject TabsPresenter presenter;
@@ -30,6 +26,19 @@ public class TabsController extends ButterKnifeController<TabsComponent> impleme
 
   @Override protected void onViewBound(@NonNull View view) {
     getComponent().inject(this);
+    tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+      @Override public void onTabSelected(TabLayout.Tab tab) {
+        presenter.onTabSelected(tab.getText().toString());
+      }
+
+      @Override public void onTabUnselected(TabLayout.Tab tab) {
+
+      }
+
+      @Override public void onTabReselected(TabLayout.Tab tab) {
+
+      }
+    });
   }
 
   @Override protected void onAttach(@NonNull View view) {
@@ -49,6 +58,7 @@ public class TabsController extends ButterKnifeController<TabsComponent> impleme
   }
 
   @Override public void setData(List<String> tabs) {
+    tabLayout.removeAllTabs();
     for (String tab : tabs) {
       tabLayout.addTab(tabLayout.newTab().setText(tab));
     }
