@@ -6,10 +6,37 @@ import java.util.Map;
 
 public class Sys {
 
+    private Integer type;
+    private Integer id;
+    private Double message;
     private String country;
     private Integer sunrise;
     private Integer sunset;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Double getMessage() {
+        return message;
+    }
+
+    public void setMessage(Double message) {
+        this.message = message;
+    }
 
     public String getCountry() {
         return country;

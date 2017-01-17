@@ -7,8 +7,8 @@ import java.util.Map;
 public class Main {
 
     private Double temp;
-    private Integer humidity;
     private Integer pressure;
+    private Integer humidity;
     private Double tempMin;
     private Double tempMax;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -21,20 +21,20 @@ public class Main {
         this.temp = temp;
     }
 
-    public Integer getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(Integer humidity) {
-        this.humidity = humidity;
-    }
-
     public Integer getPressure() {
         return pressure;
     }
 
     public void setPressure(Integer pressure) {
         this.pressure = pressure;
+    }
+
+    public Integer getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(Integer humidity) {
+        this.humidity = humidity;
     }
 
     public Double getTempMin() {

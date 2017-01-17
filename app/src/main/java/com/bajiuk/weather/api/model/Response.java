@@ -8,13 +8,14 @@ import java.util.Map;
 public class Response {
 
     private Coord coord;
-    private Sys sys;
     private List<Weather> weather = null;
+    private String base;
     private Main main;
+    private Integer visibility;
     private Wind wind;
-    private Rain rain;
     private Clouds clouds;
     private Integer dt;
+    private Sys sys;
     private Integer id;
     private String name;
     private Integer cod;
@@ -28,20 +29,20 @@ public class Response {
         this.coord = coord;
     }
 
-    public Sys getSys() {
-        return sys;
-    }
-
-    public void setSys(Sys sys) {
-        this.sys = sys;
-    }
-
     public List<Weather> getWeather() {
         return weather;
     }
 
     public void setWeather(List<Weather> weather) {
         this.weather = weather;
+    }
+
+    public String getBase() {
+        return base;
+    }
+
+    public void setBase(String base) {
+        this.base = base;
     }
 
     public Main getMain() {
@@ -52,20 +53,20 @@ public class Response {
         this.main = main;
     }
 
+    public Integer getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Integer visibility) {
+        this.visibility = visibility;
+    }
+
     public Wind getWind() {
         return wind;
     }
 
     public void setWind(Wind wind) {
         this.wind = wind;
-    }
-
-    public Rain getRain() {
-        return rain;
-    }
-
-    public void setRain(Rain rain) {
-        this.rain = rain;
     }
 
     public Clouds getClouds() {
@@ -82,6 +83,14 @@ public class Response {
 
     public void setDt(Integer dt) {
         this.dt = dt;
+    }
+
+    public Sys getSys() {
+        return sys;
+    }
+
+    public void setSys(Sys sys) {
+        this.sys = sys;
     }
 
     public Integer getId() {
