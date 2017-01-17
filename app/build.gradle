@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
   compileSdkVersion 25
@@ -18,6 +19,10 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 dependencies {
@@ -25,11 +30,29 @@ dependencies {
   compile 'com.android.support:appcompat-v7:25.1.0'
   compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 
-  compile group: 'com.squareup.mortar', name: 'mortar', version: '0.20'
+  compile 'com.squareup.mortar:mortar:0.20'
+  compile 'com.squareup.retrofit2:retrofit:2.1.0'
 
-  compile 'com.google.dagger:dagger:2.0'
-  apt 'com.google.dagger:dagger-compiler:2.0'
+  // Dagger 2
+  compile 'com.google.dagger:dagger:2.1'
+  apt 'com.google.dagger:dagger-compiler:2.1'
   provided 'org.glassfish:javax.annotation:10.0-b28'
+
+  // Butterknife
+  compile 'com.google.code.gson:gson:2.7'
+  compile 'com.jakewharton:butterknife:8.0.1'
+  apt 'com.jakewharton:butterknife-compiler:8.0.1'
+
+  // Rx
+  compile 'io.reactivex:rxandroid:1.0.1'
+  compile 'io.reactivex:rxjava:1.1.7'
+  compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
+
+  // Retrofit
+  compile 'com.squareup.retrofit2:retrofit:2.1.0'
+  compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+  compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+  compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
 
   // Tests
   testCompile 'junit:junit:4.12'

@@ -16,6 +16,7 @@
 package com.bajiuk.weather;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import mortar.MortarScope;
 import mortar.bundler.BundleServiceRunner;
