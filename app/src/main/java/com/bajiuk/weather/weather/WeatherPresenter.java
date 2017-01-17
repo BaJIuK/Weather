@@ -1,36 +1,42 @@
 package com.bajiuk.weather.weather;
 
 import com.bajiuk.weather.api.WeatherApiWrapper;
-import com.bajiuk.weather.mvp.Presenter;
+import com.bajiuk.weather.base.MvpPresenter;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class WeatherPresenter implements Presenter<WeatherView> {
+public class WeatherPresenter implements MvpPresenter<WeatherView> {
+
   private WeatherApiWrapper api;
   private WeatherView view;
+  private Subscription subscription;
 
   public WeatherPresenter(WeatherApiWrapper api) {
     this.api = api;
   }
 
-  @Override public void takeView(WeatherView view) {
+  @Override public void attach(WeatherView view) {
     this.view = view;
-    api.getByName("London")
+    loadWeather();
+  }
+
+  @Override public void detach() {
+    if (subscription != null) {
+      subscription.unsubscribe();
+    }
+    view = null;
+  }
+
+  private void loadWeather() {
+    subscription = api.getByName("London")
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response -> {
-          view.showLocation("London");
-          view.showTemperature(response.getMain().getTemp() + " ");
+          WeatherData data = new WeatherData(response.getName(), response.getMain().getTemp());
+          if (view != null) {
+            view.setData(data);
+          }
         }, Throwable::printStackTrace);
   }
-
-  @Override public void dropView(WeatherView view) {
-    this.view = null;
-  }
-
-  //@Override protected void onLoad(Bundle savedInstanceState) {
-  //}
-  //
-  //@Override protected void onSave(Bundle outState) {
-  //}
 }

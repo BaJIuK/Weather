@@ -5,11 +5,6 @@ import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
 
-/**
- * @author KoiDev
- * @email DevSteelKoi@gmail.com
- */
-
 @Module public class ApplicationModule {
   private Context context;
 
