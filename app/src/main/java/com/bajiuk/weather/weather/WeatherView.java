@@ -7,18 +7,22 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bajiuk.weather.R;
-import com.bajiuk.weather.utils.DaggerService;
+import com.bajiuk.weather.WeatherApplication;
+import com.bajiuk.weather.weather.di.DaggerWeatherComponent;
 import javax.inject.Inject;
 
 public class WeatherView extends LinearLayout {
 
-  @Inject Weather.Presenter presenter;
+  @Inject WeatherPresenter presenter;
   @BindView(R.id.temperature) TextView temperatureText;
   @BindView(R.id.location) TextView locationText;
 
   public WeatherView(Context context, AttributeSet attrs) {
     super(context, attrs);
-    DaggerService.<Weather.Component>getDaggerComponent(context, Weather.Component.class.getName()).inject(this);
+    DaggerWeatherComponent.builder()
+        .applicationComponent(WeatherApplication.getAppComponent())
+        .build()
+        .inject(this);
   }
 
   @Override protected void onFinishInflate() {

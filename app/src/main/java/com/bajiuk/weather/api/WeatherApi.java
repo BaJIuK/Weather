@@ -8,8 +8,8 @@ import rx.Observable;
 public interface WeatherApi {
 
   @GET("weather")
-  Observable<Response> getByLatLng(@Query("lat") double longitude, @Query("lon") double latitude);
+  Observable<Response> getByLatLng(@Query("lat") double longitude, @Query("lon") double latitude, @Query("APPID") String appId);
 
   @GET("weather")
-  Observable<Response> getByName(@Query("id") String cityName);
+  Observable<Response> getByName(@Query("id") String cityName, @Query("APPID") String appId);
 }

@@ -16,14 +16,26 @@
 package com.bajiuk.weather;
 
 import android.app.Application;
-import mortar.MortarScope;
+import com.bajiuk.weather.di.ApplicationComponent;
+import com.bajiuk.weather.di.ApplicationModule;
+import com.bajiuk.weather.di.DaggerApplicationComponent;
 
 public class WeatherApplication extends Application {
-  private MortarScope rootScope;
+  private static WeatherApplication instance;
+  private ApplicationComponent component;
 
-  @Override public Object getSystemService(String name) {
-    if (rootScope == null) rootScope = MortarScope.buildRootScope().build("Root");
-
-    return rootScope.hasService(name) ? rootScope.getService(name) : super.getSystemService(name);
+  @Override public void onCreate() {
+    super.onCreate();
+    instance = this;
   }
+
+  public static ApplicationComponent getAppComponent() {
+    if (instance.component == null) {
+      instance.component = DaggerApplicationComponent.builder()
+          .applicationModule(new ApplicationModule(instance))
+          .build();
+    }
+    return instance.component;
+  }
+
 }

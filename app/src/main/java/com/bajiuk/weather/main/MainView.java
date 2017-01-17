@@ -21,20 +21,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import com.bajiuk.weather.R;
-import com.bajiuk.weather.utils.DaggerService;
 import com.bajiuk.weather.weather.WeatherView;
-import javax.inject.Inject;
 
 public class MainView extends LinearLayout {
-  @Inject Main.Presenter presenter;
+
   @BindView(R.id.text) TextView textView;
   @BindView(R.id.weather) WeatherView weatherView;
 
   public MainView(Context context, AttributeSet attrs) {
     super(context, attrs);
-    DaggerService.<Main.Component>getDaggerComponent(context, Main.Component.class.getName()).inject(this);
   }
 
   @Override protected void onFinishInflate() {
@@ -44,15 +40,16 @@ public class MainView extends LinearLayout {
 
   @Override protected void onAttachedToWindow() {
     super.onAttachedToWindow();
-    presenter.takeView(this);
+    //presenter.takeView(this);
   }
 
   @Override protected void onDetachedFromWindow() {
-    presenter.dropView(this);
+    //presenter.dropView(this);
     super.onDetachedFromWindow();
   }
 
   public void show(CharSequence stuff) {
     textView.setText(stuff);
   }
+
 }
