@@ -40,11 +40,11 @@ public class WeatherView extends LinearLayout {
     super.onDetachedFromWindow();
   }
 
-  public void setLocation(String location) {
+  public void showLocation(String location) {
     locationText.setText(location);
   }
 
-  public void setTemperature(String temperature) {
+  public void showTemperature(String temperature) {
     temperatureText.setText(temperature);
   }
 }

@@ -11,5 +11,5 @@ public interface WeatherApi {
   Observable<Response> getByLatLng(@Query("lat") double longitude, @Query("lon") double latitude, @Query("APPID") String appId);
 
   @GET("weather")
-  Observable<Response> getByName(@Query("id") String cityName, @Query("APPID") String appId);
+  Observable<Response> getByName(@Query("q") String cityName, @Query("APPID") String appId);
 }
