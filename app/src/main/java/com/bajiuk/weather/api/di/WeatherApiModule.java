@@ -5,7 +5,6 @@ import com.bajiuk.weather.api.WeatherApiWrapper;
 import com.bajiuk.weather.base.PerController;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Singleton;
 import retrofit2.Retrofit;
 
 @PerController
