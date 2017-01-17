@@ -7,8 +7,6 @@ import rx.Observable;
 
 public interface WeatherApi {
 
-  public static final String BASE_URL = "api.openweathermap.org/data/2.5/";
-
   @GET("weather")
   Observable<Response> getByLatLng(@Query("lat") double longitude, @Query("lon") double latitude);
 
