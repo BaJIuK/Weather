@@ -1,14 +1,14 @@
 package com.bajiuk.weather.weather.di;
 
+import com.bajiuk.weather.api.di.WeatherApiModule;
 import com.bajiuk.weather.di.ApplicationComponent;
 import com.bajiuk.weather.di.RetrofitModule;
 import com.bajiuk.weather.weather.WeatherView;
 import dagger.Component;
 import javax.inject.Singleton;
 
-@Singleton
-@Component(modules = {
-    RetrofitModule.class, WeatherModule.class
+@Singleton @Component(modules = {
+    WeatherApiModule.class, WeatherModule.class, RetrofitModule.class
 }, dependencies = {
     ApplicationComponent.class
 }) public interface WeatherComponent {

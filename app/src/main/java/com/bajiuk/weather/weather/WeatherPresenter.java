@@ -20,7 +20,7 @@ public class WeatherPresenter implements Presenter<WeatherView> {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response -> {
           view.showLocation("London");
-          view.showTemperature(response.getWeather().get(0).getMain());
+          view.showTemperature(response.getMain().getTemp() + " ");
         }, Throwable::printStackTrace);
   }
 

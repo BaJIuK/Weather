@@ -20,19 +20,13 @@ import static com.bajiuk.weather.api.di.WeatherApiModule.BASE_URL;
 
 @Module public class RetrofitModule {
 
-  @Singleton @Provides WeatherApi provideRetrofit(GsonConverterFactory converterFactory,
+  @Singleton @Provides Retrofit provideRetrofit(GsonConverterFactory converterFactory,
       RxJavaCallAdapterFactory adapterFactory, OkHttpClient client) {
     return new Retrofit.Builder().baseUrl(BASE_URL)
         .addConverterFactory(converterFactory)
         .addCallAdapterFactory(adapterFactory)
         .client(client)
-        .build()
-        .create(WeatherApi.class);
-  }
-
-  @Singleton @Provides WeatherApiWrapper provideApiWrapper(WeatherApi api) {
-    // TODO: Move app key to BUILDSCRIPT
-    return new WeatherApiWrapper("cdc58a359f54c1eab3b14ad0e46e836d", api);
+        .build();
   }
 
   @Singleton @Provides GsonConverterFactory provideGsonConverterFactory() {
