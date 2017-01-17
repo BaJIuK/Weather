@@ -16,12 +16,14 @@
 package com.bajiuk.weather;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import com.bajiuk.weather.main.Main;
+import com.bajiuk.weather.utils.DaggerService;
+import com.bajiuk.weather.weather.Weather;
 import mortar.MortarScope;
 import mortar.bundler.BundleServiceRunner;
 
-import static com.bajiuk.weather.DaggerService.createComponent;
+import static com.bajiuk.weather.utils.DaggerService.createComponent;
 import static mortar.MortarScope.buildChild;
 import static mortar.MortarScope.findChild;
 
@@ -30,9 +32,10 @@ public class MainActivity extends Activity {
     MortarScope activityScope = findChild(getApplicationContext(), getScopeName());
 
     if (activityScope == null) {
-      activityScope = buildChild(getApplicationContext()) //
+      activityScope = buildChild(getApplicationContext())
           .withService(BundleServiceRunner.SERVICE_NAME, new BundleServiceRunner())
-          .withService(DaggerService.SERVICE_NAME, createComponent(Main.Component.class))
+          .withService(Main.Component.class.getName(), createComponent(Main.Component.class))
+          .withService(Weather.Component.class.getName(), createComponent(Weather.Component.class))
           .build(getScopeName());
     }
 
@@ -42,7 +45,6 @@ public class MainActivity extends Activity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     BundleServiceRunner.getBundleServiceRunner(this).onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
   }
@@ -55,9 +57,10 @@ public class MainActivity extends Activity {
   @Override protected void onDestroy() {
     if (isFinishing()) {
       MortarScope activityScope = findChild(getApplicationContext(), getScopeName());
-      if (activityScope != null) activityScope.destroy();
+      if (activityScope != null) {
+        activityScope.destroy();
+      }
     }
-
     super.onDestroy();
   }
 

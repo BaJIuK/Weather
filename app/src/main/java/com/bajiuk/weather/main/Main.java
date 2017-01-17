@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bajiuk.weather;
+package com.bajiuk.weather.main;
 
 import android.os.Bundle;
 import java.text.DateFormat;
@@ -25,8 +25,8 @@ import mortar.ViewPresenter;
 
 public class Main {
 
-  @dagger.Component @Singleton interface Component {
-    void inject(MainView t);
+  @dagger.Component @Singleton public interface Component {
+    void inject(MainView view);
   }
 
   @Singleton

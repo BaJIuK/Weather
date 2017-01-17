@@ -13,27 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bajiuk.weather;
+package com.bajiuk.weather.main;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import com.bajiuk.weather.R;
+import com.bajiuk.weather.utils.DaggerService;
+import com.bajiuk.weather.weather.WeatherView;
 import javax.inject.Inject;
 
 public class MainView extends LinearLayout {
   @Inject Main.Presenter presenter;
-
-  private TextView textView;
+  @BindView(R.id.text) TextView textView;
+  @BindView(R.id.weather) WeatherView weatherView;
 
   public MainView(Context context, AttributeSet attrs) {
     super(context, attrs);
-    DaggerService.<Main.Component>getDaggerComponent(context).inject(this);
+    DaggerService.<Main.Component>getDaggerComponent(context, Main.Component.class.getName()).inject(this);
   }
 
   @Override protected void onFinishInflate() {
     super.onFinishInflate();
-    textView = (TextView) findViewById(R.id.text);
+    ButterKnife.bind(this);
   }
 
   @Override protected void onAttachedToWindow() {
