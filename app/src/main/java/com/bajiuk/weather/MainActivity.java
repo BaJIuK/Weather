@@ -19,7 +19,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import com.bajiuk.weather.home.HomeController;
-import com.bajiuk.weather.weather.WeatherController;
 import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;

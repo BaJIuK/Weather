@@ -4,9 +4,6 @@ import com.bajiuk.weather.base.MvpPresenter;
 import com.bajiuk.weather.db.Notificator;
 import com.bajiuk.weather.db.StorageApi;
 
-/**
- * Created by Valentin on 18.01.2017.
- */
 
 public class FabPresenter implements MvpPresenter<FabView> {
 

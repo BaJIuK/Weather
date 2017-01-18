@@ -7,10 +7,6 @@ import com.bajiuk.weather.tabs.TabsPresenter;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by Valentin on 18.01.2017.
- */
-
 @Module public class TabsModule {
   @PerController @Provides TabsPresenter provideTabsPresenter(StorageApi storageApi, Notificator notificator) {
     return new TabsPresenter(storageApi, notificator);

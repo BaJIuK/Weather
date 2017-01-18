@@ -5,11 +5,6 @@ import com.bajiuk.weather.db.Notificator;
 import com.bajiuk.weather.db.StorageApi;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-
-/**
- * Created by Valentin on 18.01.2017.
- */
 
 public class TabsPresenter implements MvpPresenter<TabsView> {
 

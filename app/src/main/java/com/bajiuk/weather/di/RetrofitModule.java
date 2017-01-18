@@ -1,7 +1,5 @@
 package com.bajiuk.weather.di;
 
-import com.bajiuk.weather.api.WeatherApi;
-import com.bajiuk.weather.api.WeatherApiWrapper;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -12,11 +10,6 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.bajiuk.weather.api.di.WeatherApiModule.BASE_URL;
-
-/**
- * @author KoiDev
- * @email DevSteelKoi@gmail.com
- */
 
 @Module public class RetrofitModule {
 

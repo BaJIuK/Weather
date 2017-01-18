@@ -1,7 +1,6 @@
 package com.bajiuk.weather.api;
 
 import com.bajiuk.weather.api.model.Response;
-import retrofit2.http.Query;
 import rx.Observable;
 
 public class WeatherApiWrapper {

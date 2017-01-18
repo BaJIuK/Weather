@@ -1,6 +1,5 @@
 package com.bajiuk.weather.fab;
 
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
@@ -8,22 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import butterknife.BindView;
 import butterknife.OnClick;
 import com.bajiuk.weather.R;
 import com.bajiuk.weather.WeatherApplication;
 import com.bajiuk.weather.base.ButterKnifeController;
+import com.bajiuk.weather.dialog.CityDialogPresenter;
 import com.bajiuk.weather.fab.di.DaggerFabComponent;
 import com.bajiuk.weather.fab.di.FabComponent;
 import javax.inject.Inject;
 
-/**
- * Created by Valentin on 18.01.2017.
- */
-
 public class FabController extends ButterKnifeController<FabComponent> {
 
   @Inject FabPresenter presenter;
+  @Inject CityDialogPresenter dialogModule;
 
   @Override
   protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
@@ -42,7 +38,7 @@ public class FabController extends ButterKnifeController<FabComponent> {
   }
 
   @OnClick(R.id.fab) protected void onAddCity() {
-    showDialog();
+    dialogModule.showDialog("Title");
   }
 
   protected void showDialog() {
