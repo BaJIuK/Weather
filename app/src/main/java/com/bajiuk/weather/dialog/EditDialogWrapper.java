@@ -46,6 +46,8 @@ public class EditDialogWrapper {
     builder.setTitle(title);
     final EditText input = new EditText(context);
     input.setText(text);
+    input.post(() -> input.setSelection(text.length()));
+    input.setSelection(input.getText().length());
     input.setInputType(InputType.TYPE_CLASS_TEXT);
     input.addTextChangedListener(new TextWatcher() {
       @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -67,7 +69,10 @@ public class EditDialogWrapper {
       }
     });
     builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
-    builder.setOnDismissListener(dialog -> isShowing = false);
+    builder.setOnDismissListener(dialog -> {
+      isShowing = false;
+      text = "";
+    });
     builder.show();
   }
 

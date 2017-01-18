@@ -35,6 +35,7 @@ public class TabsController extends ButterKnifeController<TabsComponent> impleme
 
   public TabsController() {
     initDialog();
+    getComponent().inject(this);
   }
 
   @Override
@@ -43,7 +44,6 @@ public class TabsController extends ButterKnifeController<TabsComponent> impleme
   }
 
   @Override protected void onViewBound(@NonNull View view) {
-    getComponent().inject(this);
     initWeatherContainer();
     initTabs();
   }

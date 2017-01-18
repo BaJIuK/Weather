@@ -18,7 +18,7 @@ import javax.inject.Inject;
 public class WeatherController extends ButterKnifeController<WeatherComponent>
     implements WeatherView {
 
-  public static final String KEY_CITY = "K_CITY";
+  private static final String KEY_CITY = "K_CITY";
 
   @Inject WeatherPresenter presenter;
   @BindView(R.id.location) TextView locationText;
