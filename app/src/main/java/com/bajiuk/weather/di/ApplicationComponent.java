@@ -1,7 +1,6 @@
 package com.bajiuk.weather.di;
 
 import android.content.Context;
-import com.bajiuk.weather.db.Notificator;
 import com.bajiuk.weather.db.StorageApi;
 import com.bajiuk.weather.db.di.StorageModule;
 import dagger.Component;
@@ -16,6 +15,4 @@ import retrofit2.Retrofit;
   Context context();
 
   StorageApi storage();
-
-  Notificator notificator();
 }

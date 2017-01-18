@@ -4,5 +4,7 @@ import com.bajiuk.weather.base.MvpView;
 import java.util.List;
 
 public interface TabsView extends MvpView {
-  void setData(List<String> tabs);
+  void setTabs(List<String> tabs);
+  void addTab(String name);
+  void showWeather(String name);
 }

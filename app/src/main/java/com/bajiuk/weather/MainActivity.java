@@ -18,7 +18,7 @@ package com.bajiuk.weather;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup;
-import com.bajiuk.weather.home.HomeController;
+import com.bajiuk.weather.tabs.TabsController;
 import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 
     router = Conductor.attachRouter(this, container, savedInstanceState);
     if (!router.hasRootController()) {
-      router.setRoot(RouterTransaction.with(new HomeController()));
+      router.setRoot(RouterTransaction.with(new TabsController()));
     }
   }
 

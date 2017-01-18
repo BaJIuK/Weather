@@ -1,49 +1,30 @@
 package com.bajiuk.weather.tabs;
 
 import com.bajiuk.weather.base.MvpPresenter;
-import com.bajiuk.weather.db.Notificator;
 import com.bajiuk.weather.db.StorageApi;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 
 public class TabsPresenter implements MvpPresenter<TabsView> {
 
   private StorageApi storageApi;
-  private Notificator notificator;
-  private Subscription subscription;
   private TabsView view;
 
-  public TabsPresenter(StorageApi storageApi, Notificator notificator) {
+  public TabsPresenter(StorageApi storageApi) {
     this.storageApi = storageApi;
-    this.notificator = notificator;
-  }
-
-  private void setupNotificationListener() {
-    subscription = notificator.getAddNotifier()
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(newCity -> refreshCities());
   }
 
   @Override public void attach(TabsView view) {
     this.view = view;
-    setupNotificationListener();
+    view.setTabs(storageApi.getCities());
   }
 
   @Override public void detach() {
-    if (subscription != null) {
-      subscription.unsubscribe();
-    }
     view = null;
   }
 
-  public void onTabSelected(String cityName) {
-    notificator.setVisible(cityName);
-  }
-
-  private void refreshCities() {
+  public void addCity(String city) {
+    storageApi.addCity(city);
     if (view != null) {
-      view.setData(storageApi.getCities());
+      view.addTab(city);
     }
   }
-
 }
