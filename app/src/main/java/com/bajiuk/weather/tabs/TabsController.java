@@ -3,7 +3,6 @@ package com.bajiuk.weather.tabs;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.bajiuk.weather.R;
 import com.bajiuk.weather.WeatherApplication;
-import com.bajiuk.weather.base.ButterKnifeController;
+import com.bajiuk.weather.base.ViewModelController;
 import com.bajiuk.weather.dialog.EditDialogWrapper;
 import com.bajiuk.weather.tabs.di.DaggerTabsComponent;
 import com.bajiuk.weather.tabs.di.TabsComponent;
@@ -21,21 +20,37 @@ import com.bajiuk.weather.weather.WeatherController;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
-import java.util.List;
 import javax.inject.Inject;
 
-public class TabsController extends ButterKnifeController<TabsComponent> implements TabsView {
+public class TabsController extends ViewModelController<TabsComponent, TabsViewModel>
+    implements TabsView<TabsViewModel> {
 
   @Inject TabsPresenter presenter;
   @BindView(R.id.tabs) TabLayout tabLayout;
   @BindView(R.id.weather) FrameLayout weatherLayout;
 
   private Router weatherRouter;
+  private WeatherController weatherController;
   private EditDialogWrapper editDialogWrapper;
+  private TabLayout.OnTabSelectedListener onTabSelectedListener =
+      new TabLayout.OnTabSelectedListener() {
+        @Override public void onTabSelected(TabLayout.Tab tab) {
+          showWeather(tab.getText().toString());
+        }
+
+        @Override public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+      };
 
   public TabsController() {
     initDialog();
     getComponent().inject(this);
+    presenter.attach(this);
   }
 
   @Override
@@ -45,7 +60,6 @@ public class TabsController extends ButterKnifeController<TabsComponent> impleme
 
   @Override protected void onViewBound(@NonNull View view) {
     initWeatherContainer();
-    initTabs();
   }
 
   @Override protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
@@ -63,16 +77,6 @@ public class TabsController extends ButterKnifeController<TabsComponent> impleme
     editDialogWrapper.onResume(activity);
   }
 
-  @Override protected void onAttach(@NonNull View view) {
-    super.onAttach(view);
-    presenter.attach(this);
-  }
-
-  @Override protected void onDetach(@NonNull View view) {
-    presenter.detach();
-    super.onDetach(view);
-  }
-
   @Override protected TabsComponent buildComponent() {
     return DaggerTabsComponent.builder()
         .applicationComponent(WeatherApplication.getAppComponent())
@@ -85,23 +89,6 @@ public class TabsController extends ButterKnifeController<TabsComponent> impleme
 
   private void initWeatherContainer() {
     weatherRouter = getChildRouter(weatherLayout).setPopsLastView(true);
-    showWeather(null);
-  }
-
-  private void initTabs() {
-    tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-      @Override public void onTabSelected(TabLayout.Tab tab) {
-        showWeather(tab.getText().toString());
-      }
-
-      @Override public void onTabUnselected(TabLayout.Tab tab) {
-
-      }
-
-      @Override public void onTabReselected(TabLayout.Tab tab) {
-
-      }
-    });
   }
 
   private void initDialog() {
@@ -109,10 +96,20 @@ public class TabsController extends ButterKnifeController<TabsComponent> impleme
         new EditDialogWrapper(R.string.city_dialog_title, city -> presenter.addCity(city));
   }
 
-  @Override public void setTabs(List<String> tabs) {
+  public void showTabs() {
+    tabLayout.removeOnTabSelectedListener(onTabSelectedListener);
     tabLayout.removeAllTabs();
-    for (String tab : tabs) {
-      tabLayout.addTab(tabLayout.newTab().setText(tab));
+    TabLayout.Tab selected = null;
+    for (String tab : data.getTabs()) {
+      TabLayout.Tab tabItem = tabLayout.newTab().setText(tab);
+      tabLayout.addTab(tabItem);
+      if (tab.equals(data.getSelected())) {
+        selected = tabItem;
+      }
+    }
+    tabLayout.addOnTabSelectedListener(onTabSelectedListener);
+    if (selected != null) {
+      selected.select();
     }
   }
 
@@ -120,12 +117,27 @@ public class TabsController extends ButterKnifeController<TabsComponent> impleme
     TabLayout.Tab tab = tabLayout.newTab().setText(name);
     tabLayout.addTab(tab);
     tab.select();
+    data.setSelected(name);
   }
 
   @Override public void showWeather(String location) {
-    WeatherController weatherController = new WeatherController(location);
+    weatherController = WeatherController.getControllerForCity(location, weatherController);
+    weatherRouter.popToRoot();
     weatherRouter.setRoot(RouterTransaction.with(weatherController)
         .pushChangeHandler(new FadeChangeHandler())
         .popChangeHandler(new FadeChangeHandler()));
+  }
+
+  @Override public void showContent() {
+    showTabs();
+  }
+
+  @Override protected void loadData() {
+    presenter.loadData();
+  }
+
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    presenter.detach();
   }
 }

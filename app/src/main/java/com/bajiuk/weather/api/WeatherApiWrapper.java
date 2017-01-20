@@ -12,8 +12,8 @@ public class WeatherApiWrapper {
     this.weatherApi = weatherApi;
   }
 
-  public Observable<Response> getByLatLng(double longitude, double latitude) {
-    return weatherApi.getByLatLng(longitude, latitude, appId);
+  public Observable<Response> getByLatLng(double latitude, double longitude) {
+    return weatherApi.getByLatLng(latitude, longitude, appId);
   }
 
 

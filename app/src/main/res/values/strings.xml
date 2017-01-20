@@ -3,4 +3,10 @@
     <string name="city_dialog_title">Enter city name</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+
+    <string name="error_connection">Connection problems</string>
+    <string name="error_retry">Retry</string>
+
+    <string name="error_location">Permission problem</string>
+    <string name="error_request">Request</string>
 </resources>

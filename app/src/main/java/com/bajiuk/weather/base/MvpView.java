@@ -1,4 +1,6 @@
 package com.bajiuk.weather.base;
 
-public interface MvpView {
+public interface MvpView<M extends MvpViewModel> {
+  void setData(M data);
+  void showContent();
 }
