@@ -1,12 +1,13 @@
 package com.bajiuk.weather.tabs;
 
 import com.bajiuk.weather.base.MvpViewModel;
+import com.bajiuk.weather.weather.WeatherView;
 import java.util.List;
 
 public class TabsViewModel implements MvpViewModel {
 
   private List<String> tabs;
-  private String selected;
+  private String selected = WeatherView.CURRENT;
 
   public TabsViewModel(List<String> tabs) {
     this.tabs = tabs;

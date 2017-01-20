@@ -110,6 +110,7 @@ public class TabsController extends ViewModelController<TabsComponent, TabsViewM
     tabLayout.addOnTabSelectedListener(onTabSelectedListener);
     if (selected != null) {
       selected.select();
+      showWeather(selected.getText().toString());
     }
   }
 

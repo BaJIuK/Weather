@@ -28,7 +28,7 @@ public class LocationProviderImpl implements LocationProvider {
         && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
         != PackageManager.PERMISSION_GRANTED) {
       return Observable.fromCallable(() -> {
-        throw new RuntimeException("Location permission needed");
+        throw new PermissionException();
       });
     } else {
       return rxLocation.getLastKnownLocation();

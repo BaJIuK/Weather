@@ -1,5 +1,6 @@
 package com.bajiuk.weather.weather;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -13,8 +14,10 @@ import com.bajiuk.weather.R;
 import com.bajiuk.weather.WeatherApplication;
 import com.bajiuk.weather.base.ViewModelController;
 import com.bajiuk.weather.utils.BundleBuilder;
+import com.bajiuk.weather.utils.IntentUtils;
 import com.bajiuk.weather.weather.di.DaggerWeatherComponent;
 import com.bajiuk.weather.weather.di.WeatherComponent;
+import com.tbruyelle.rxpermissions.RxPermissions;
 import javax.inject.Inject;
 
 public class WeatherController extends ViewModelController<WeatherComponent, WeatherViewModel>
@@ -72,6 +75,16 @@ public class WeatherController extends ViewModelController<WeatherComponent, Wea
   @OnClick(R.id.error_button) protected void onErrorClicked() {
     if (data.getErrorType() == WeatherViewModel.ErrorType.NETWORK) {
       presenter.load(cityName);
+    } else {
+      RxPermissions rxPermissions = new RxPermissions(getActivity());
+      rxPermissions.requestEach(Manifest.permission.ACCESS_COARSE_LOCATION)
+          .subscribe(permission -> {
+            if (permission.granted) {
+              presenter.load(cityName);
+            } else if (!permission.shouldShowRequestPermissionRationale) {
+              IntentUtils.startApplicationDetailsActivity(getActivity());
+            }
+          });
     }
   }
 
@@ -91,6 +104,15 @@ public class WeatherController extends ViewModelController<WeatherComponent, Wea
           getActivity().getString(isConnection ? R.string.error_retry : R.string.error_request);
       errorText.setText(messageText);
       errorButton.setText(buttonText);
+      if (!isConnection) {
+        RxPermissions rxPermissions = new RxPermissions(getActivity());
+        rxPermissions.requestEach(Manifest.permission.ACCESS_COARSE_LOCATION)
+            .subscribe(permission -> {
+              if (permission.granted) {
+                presenter.load(cityName);
+              }
+            });
+      }
     }
   }
 
