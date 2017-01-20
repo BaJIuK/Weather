@@ -1,7 +1,7 @@
  
 
-Weather 
-========
+Weather
+=======
 
 Android small weather application. It was given to me like “test application”
 for entering some startup. I have decided to use and learn “Conductor” android
@@ -40,6 +40,8 @@ Frameworks and methods used:
 -   Reactive-Location
 
 -   RxPermissions
+
+-   MVP
 
  
 
